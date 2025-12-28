@@ -150,12 +150,12 @@ padding:15px;
 </nav>
 </header>
 
-  <section class="hero" id="home">
-  <img src="./img/logo.png" alt="Logo Jajanan Gen Z">
-  <h2>Cemilan Teman Ngemil Paling Relate</h2>
-  <p>Pedas • Gurih • Nagih</p>
+<section class="hero" id="home">
+<img src="img/logo.png" alt="Logo Jajanan Gen Z">
+<h2>Cemilan Teman Ngemil Paling Relate</h2>
+<p>Pedas • Gurih • Nagih</p>
 </section>
-  
+
 <section id="produk">
 <h2>Koleksi Produk</h2>
 <div class="product-grid" id="productGrid"></div>
@@ -163,66 +163,13 @@ padding:15px;
 
 <section id="keranjang">
 <h2>Keranjang Pesanan</h2>
-
 <div class="cart-box" id="cart"></div>
 <h3>Total: Rp <span id="total">0</span></h3>
-
-<div class="cart-box">
-<input id="namaPembeli" placeholder="Nama Pembeli">
-<textarea id="alamatPembeli" placeholder="Alamat Lengkap Pembeli"></textarea>
-
-<select id="metodeBayar" onchange="pilihMetode()">
-<option value="">Pilih Metode Pembayaran</option>
-<option value="QRIS">QRIS</option>
-<option value="TRANSFER">Transfer Bank</option>
-<option value="COD">COD</option>
-</select>
-
-<div class="qris-box" id="qrisBox">
-<p><strong>Scan QRIS</strong></p>
-<img src="images/qris.png" alt="QRIS">
-</div>
-
-<div class="bank-box" id="bankBox">
-<p><strong>Transfer ke Rekening:</strong></p>
-<p>🏦 <b>BCA</b><br>
-No Rek: <b>7050389604</b><br>
-a.n <b>YUSRIYAH RAHMAH</b></p>
-</div>
-
-<button onclick="checkout()">Checkout Pesanan</button>
-
-<div class="status proses" id="statusPesanan">Pesanan sedang diproses ⏳</div>
-<div class="status berhasil" id="statusBerhasil">Pesanan berhasil dicatat ✅</div>
-</div>
 </section>
 
 <section id="ulasan">
 <h2>Ulasan Customer</h2>
-
-<div class="cart-box">
-<input id="namaUlasan" placeholder="Nama">
-<select id="rating">
-<option value="5">⭐⭐⭐⭐⭐</option>
-<option value="4">⭐⭐⭐⭐</option>
-<option value="3">⭐⭐⭐</option>
-<option value="2">⭐⭐</option>
-<option value="1">⭐</option>
-</select>
-<textarea id="komentar" placeholder="Tulis ulasan..."></textarea>
-<button onclick="kirimUlasan()">Kirim</button>
-</div>
-
 <div class="cart-box" id="listUlasan"></div>
-</section>
-
-<section id="kontak">
-<h2>Kontak & Alamat</h2>
-<div class="cart-box">
-<p><strong>📍 Alamat:</strong><br>Jl. Alastua Semanan Kalideres Jakarta Barat</p>
-<p><strong>📞 WhatsApp:</strong><br>0857-8262-1308</p>
-<p><strong>📷 Instagram:</strong><br>@ansarahmah_21</p>
-</div>
 </section>
 
 <footer>© 2025 Jajanan Gen Z</footer>
@@ -239,82 +186,24 @@ let produk=[
 {nama:"Usus Crispy Pedas",harga:10000,foto:"images/usus crispy.jpg"}
 ];
 
-let keranjang=[];
 let ulasan=[
 {nama:"Aisyah",rating:5,komentar:"Enak banget, cocok nyemil sambil nugas project😍"},
-{nama:"Rina",rating:4,komentar:"Nagih parah, rasanya enak, recomended"}
-{nama:"Balqis",rating:4,komentar:"ga bisa berenti nyemilin produk ini, pokonya harus nyetok"}
+{nama:"Rina",rating:4,komentar:"Nagih parah, rasanya enak, recomended"},
+{nama:"Balqis",rating:4,komentar:"Ga bisa berhenti nyemilin produk ini, wajib nyetok!"}
 ];
 
 function tampilProduk(){
 productGrid.innerHTML="";
-produk.forEach((p,i)=>{
+produk.forEach(p=>{
 productGrid.innerHTML+=`
 <div class="product-card">
 <img src="${p.foto}">
 <div class="product-info">
 <h3>${p.nama}</h3>
 <p class="price">Rp ${p.harga}</p>
-<button onclick="pesan(${i})">Tambah ke Keranjang</button>
 </div>
 </div>`;
 });
-}
-
-function pesan(i){
-let item=keranjang.find(k=>k.nama===produk[i].nama);
-item?item.qty++:keranjang.push({...produk[i],qty:1});
-renderKeranjang();
-}
-
-function renderKeranjang(){
-cart.innerHTML="";
-let totalHarga=0;
-keranjang.forEach(k=>{
-let sub=k.harga*k.qty;
-totalHarga+=sub;
-cart.innerHTML+=`
-<div class="cart-item">
-<span>${k.nama} x${k.qty}</span>
-<span>Rp ${sub}</span>
-</div>`;
-});
-total.innerText=totalHarga;
-}
-
-function pilihMetode(){
-qrisBox.style.display="none";
-bankBox.style.display="none";
-if(metodeBayar.value==="QRIS") qrisBox.style.display="block";
-if(metodeBayar.value==="TRANSFER") bankBox.style.display="block";
-}
-
-function checkout(){
-if(!namaPembeli.value||!alamatPembeli.value){
-alert("Lengkapi nama & alamat pembeli");
-return;
-}
-if(keranjang.length===0){
-alert("Keranjang masih kosong");
-return;
-}
-
-statusPesanan.style.display="block";
-
-setTimeout(()=>{
-statusPesanan.style.display="none";
-statusBerhasil.style.display="block";
-keranjang=[];
-renderKeranjang();
-},1500);
-}
-
-function kirimUlasan(){
-if(!namaUlasan.value||!komentar.value)return;
-ulasan.unshift({nama:namaUlasan.value,rating:rating.value,komentar:komentar.value});
-namaUlasan.value="";
-komentar.value="";
-tampilUlasan();
 }
 
 function tampilUlasan(){
@@ -335,9 +224,4 @@ tampilUlasan();
 
 </body>
 </html>
-
-
-
-
-
 
