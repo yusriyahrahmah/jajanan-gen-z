@@ -37,7 +37,6 @@ nav a{color:white;margin-left:15px;text-decoration:none;font-size:14px;}
 
 section{padding:70px 20px;max-width:1200px;margin:auto;}
 .hero{text-align:center;}
-.hero img{width:140px;margin-bottom:15px;}
 .hero h2{color:var(--maroon);}
 
 .product-grid{
@@ -162,7 +161,6 @@ padding:15px;
 
 <section id="keranjang">
 <h2>Keranjang Pesanan</h2>
-
 <div class="cart-box" id="cart"></div>
 <h3>Total: Rp <span id="total">0</span></h3>
 
@@ -184,13 +182,10 @@ padding:15px;
 
 <div class="bank-box" id="bankBox">
 <p><strong>Transfer ke Rekening:</strong></p>
-<p>🏦 <b>BCA</b><br>
-No Rek: <b>7050389604</b><br>
-a.n <b>YUSRIYAH RAHMAH</b></p>
+<p>🏦 <b>BCA</b><br>No Rek: <b>7050389604</b><br>a.n <b>YUSRIYAH RAHMAH</b></p>
 </div>
 
 <button onclick="checkout()">Checkout Pesanan</button>
-
 <div class="status proses" id="statusPesanan">Pesanan sedang diproses ⏳</div>
 <div class="status berhasil" id="statusBerhasil">Pesanan berhasil dicatat ✅</div>
 </div>
@@ -228,21 +223,21 @@ a.n <b>YUSRIYAH RAHMAH</b></p>
 
 <script>
 let produk=[
-{nama:"Basreng Pedas Daun Jeruk",harga:6000,foto:"images/basreng pedas daun jeruk.png"},
-{nama:"Basreng Cabe Hijau",harga:6000,foto:"images/basreng cabe hijau.jpg"},
-{nama:"Kerupuk Seblak",harga:6000,foto:"images/kerupuk seblak.jpg"},
-{nama:"Makaroni Pedas Balado",harga:6000,foto:"images/makaroni pedas balado.png"},
+{nama:"Basreng Pedas Daun Jeruk",harga:6000,foto:"images/basreng-pedas-daun-jeruk.png"},
+{nama:"Basreng Cabe Hijau",harga:6000,foto:"images/basreng-cabe-hijau.jpg"},
+{nama:"Kerupuk Seblak",harga:6000,foto:"images/kerupuk-seblak.jpg"},
+{nama:"Makaroni Pedas Balado",harga:6000,foto:"images/makaroni-pedas-balado.png"},
 {nama:"Cikur Pedas",harga:6000,foto:"images/cikur.jpg"},
-{nama:"Keripik Kaca Cabe Merah",harga:6000,foto:"images/keripik kaca cabe merah.jpg"},
-{nama:"Keripik Kaca Cabe Hijau",harga:6000,foto:"images/keripik kaca cabe hijau.jpg"},
-{nama:"Usus Crispy Pedas",harga:10000,foto:"images/usus crispy.jpg"}
+{nama:"Keripik Kaca Cabe Merah",harga:6000,foto:"images/keripik-kaca-cabe-merah.jpg"},
+{nama:"Keripik Kaca Cabe Hijau",harga:6000,foto:"images/keripik-kaca-cabe-hijau.jpg"},
+{nama:"Usus Crispy Pedas",harga:10000,foto:"images/usus-crispy.jpg"}
 ];
 
 let keranjang=[];
 let ulasan=[
-{nama:"Aisyah",rating:5,komentar:"Enak banget, cocok nyemil ini sambil nugas project 😍"},
-{nama:"Rina",rating:4,komentar:"Nagih parah, recomended!"}
-{nama:"Balqis",rating:4,komentar:"Gurih dan enaakkk bangettt, wajib nyetok cemilan ini!"}
+{nama:"Aisyah",rating:5,komentar:"Enak banget, cocok nyemil sambil nugas 😍"},
+{nama:"Rina",rating:4,komentar:"Nagih parah, recomended!"},
+{nama:"Balqis",rating:4,komentar:"Gurih dan enaakkk, wajib nyetok!"}
 ];
 
 function tampilProduk(){
@@ -289,17 +284,9 @@ if(metodeBayar.value==="TRANSFER") bankBox.style.display="block";
 }
 
 function checkout(){
-if(!namaPembeli.value||!alamatPembeli.value){
-alert("Lengkapi nama & alamat pembeli");
-return;
-}
-if(keranjang.length===0){
-alert("Keranjang masih kosong");
-return;
-}
-
+if(!namaPembeli.value||!alamatPembeli.value){alert("Lengkapi data");return;}
+if(keranjang.length===0){alert("Keranjang kosong");return;}
 statusPesanan.style.display="block";
-
 setTimeout(()=>{
 statusPesanan.style.display="none";
 statusBerhasil.style.display="block";
@@ -334,5 +321,3 @@ tampilUlasan();
 
 </body>
 </html>
-
-
