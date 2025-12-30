@@ -5,84 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jajanan Gen Z</title>
 
-<!-- META JSON-LD : BISNIS -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FoodEstablishment",
-  "name": "Jajanan Gen Z",
-  "description": "Jajanan Gen Z adalah bisnis cemilan kekinian dengan rasa pedas, gurih, dan nagih yang digemari Gen Z.",
-  "priceRange": "Rp6.000 - Rp10.000",
-  "servesCuisine": "Cemilan Pedas",
-  "telephone": "+62-857-8262-1308",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Jl. Alastua, Semanan, Kalideres",
-    "addressLocality": "Jakarta Barat",
-    "addressRegion": "DKI Jakarta",
-    "addressCountry": "ID"
-  },
-  "sameAs": [
-    "https://instagram.com/ansarahmah_21"
-  ]
-}
-</script>
-
-<!-- META JSON-LD : PRODUK -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "name": "Daftar Produk Jajanan Gen Z",
-  "itemListElement": [
-    {
-      "@type": "Product",
-      "name": "Basreng Pedas Daun Jeruk",
-      "offers": {
-        "@type": "Offer",
-        "priceCurrency": "IDR",
-        "price": "6000",
-        "availability": "https://schema.org/InStock"
-      }
-    },
-    {
-      "@type": "Product",
-      "name": "Basreng Cabe Hijau",
-      "offers": {
-        "@type": "Offer",
-        "priceCurrency": "IDR",
-        "price": "6000",
-        "availability": "https://schema.org/InStock"
-      }
-    },
-    {
-      "@type": "Product",
-      "name": "Kerupuk Seblak",
-      "offers": {
-        "@type": "Offer",
-        "priceCurrency": "IDR",
-        "price": "6000",
-        "availability": "https://schema.org/InStock"
-      }
-    },
-    {
-      "@type": "Product",
-      "name": "Usus Crispy Pedas",
-      "offers": {
-        "@type": "Offer",
-        "priceCurrency": "IDR",
-        "price": "10000",
-        "availability": "https://schema.org/InStock"
-      }
-    }
-  ]
-}
-</script>
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-/* ======= CSS ASLI KAMU (TIDAK DIUBAH) ======= */
 :root{
 --cream:#fdf6ee;
 --maroon:#800020;
@@ -112,6 +37,7 @@ nav a{color:white;margin-left:15px;text-decoration:none;font-size:14px;}
 
 section{padding:70px 20px;max-width:1200px;margin:auto;}
 .hero{text-align:center;}
+.hero img{width:140px;margin-bottom:15px;}
 .hero h2{color:var(--maroon);}
 
 .product-grid{
@@ -148,7 +74,6 @@ border:none;
 padding:10px 20px;
 border-radius:20px;
 cursor:pointer;
-margin:5px;
 }
 button:hover{background:var(--dark-maroon);}
 
@@ -211,3 +136,202 @@ padding:15px;
 }
 </style>
 </head>
+
+<body>
+
+<header>
+<h1>Jajanan Gen Z</h1>
+<nav>
+<a href="#home">Home</a>
+<a href="#produk">Produk</a>
+<a href="#keranjang">Pesanan</a>
+<a href="#ulasan">Ulasan</a>
+<a href="#kontak">Kontak</a>
+</nav>
+</header>
+
+<section class="hero" id="home">
+<h2>Cemilan Favorit di Setiap Cerita</h2>
+<p>Pedas • Gurih • Nagih</p>
+</section>
+
+<section id="produk">
+<h2>Koleksi Produk</h2>
+<div class="product-grid" id="productGrid"></div>
+</section>
+
+<section id="keranjang">
+<h2>Keranjang Pesanan</h2>
+
+<div class="cart-box" id="cart"></div>
+<h3>Total: Rp <span id="total">0</span></h3>
+
+<div class="cart-box">
+<input id="namaPembeli" placeholder="Nama Pembeli">
+<textarea id="alamatPembeli" placeholder="Alamat Lengkap Pembeli"></textarea>
+
+<select id="metodeBayar" onchange="pilihMetode()">
+<option value="">Pilih Metode Pembayaran</option>
+<option value="QRIS">QRIS</option>
+<option value="TRANSFER">Transfer Bank</option>
+<option value="COD">COD</option>
+</select>
+
+<div class="qris-box" id="qrisBox">
+<p><strong>Scan QRIS</strong></p>
+<img src="images/qris.png">
+</div>
+
+<div class="bank-box" id="bankBox">
+<p><strong>Transfer ke Rekening:</strong></p>
+<p>🏦 <b>BCA</b><br>
+No Rek: <b>7050389604</b><br>
+a.n <b>YUSRIYAH RAHMAH</b></p>
+</div>
+
+<button onclick="checkout()">Checkout Pesanan</button>
+
+<div class="status proses" id="statusPesanan">Pesanan sedang diproses ⏳</div>
+<div class="status berhasil" id="statusBerhasil">Pesanan berhasil dicatat ✅</div>
+</div>
+</section>
+
+<section id="ulasan">
+<h2>Ulasan Customer</h2>
+
+<div class="cart-box">
+<input id="namaUlasan" placeholder="Nama">
+<select id="rating">
+<option value="5">⭐⭐⭐⭐⭐</option>
+<option value="4">⭐⭐⭐⭐</option>
+<option value="3">⭐⭐⭐</option>
+<option value="2">⭐⭐</option>
+<option value="1">⭐</option>
+</select>
+<textarea id="komentar" placeholder="Tulis ulasan..."></textarea>
+<button onclick="kirimUlasan()">Kirim</button>
+</div>
+
+<div class="cart-box" id="listUlasan"></div>
+</section>
+
+<section id="kontak">
+<h2>Kontak & Alamat</h2>
+<div class="cart-box">
+<p><strong>📍 Alamat:</strong><br>Jl. Alastua Semanan Kalideres Jakarta Barat</p>
+<p><strong>📞 WhatsApp:</strong><br>0857-8262-1308</p>
+<p><strong>📷 Instagram:</strong><br>@ansarahmah_21</p>
+</div>
+</section>
+
+<footer>© 2025 Jajanan Gen Z</footer>
+
+<script>
+let produk=[
+{nama:"Basreng Pedas Daun Jeruk",harga:6000,foto:"images/basreng pedas daun jeruk.PNG"},
+{nama:"Basreng Cabe Hijau",harga:6000,foto:"images/basreng cabe hijau.jpg"},
+{nama:"Kerupuk Seblak",harga:6000,foto:"images/kerupuk seblak.jpg"},
+{nama:"Makaroni Pedas Balado",harga:6000,foto:"images/makaroni pedas balado.PNG"},
+{nama:"Cikur Pedas",harga:6000,foto:"images/cikur.jpg"},
+{nama:"Keripik Kaca Cabe Merah",harga:6000,foto:"images/keripik kaca cabe merah.jpg"},
+{nama:"Keripik Kaca Cabe Hijau",harga:6000,foto:"images/keripik kaca cabe hijau.jpg"},
+{nama:"Usus Crispy Pedas",harga:10000,foto:"images/usus crispy.jpg"}
+];
+
+let keranjang=[];
+let ulasan=[
+{nama:"Aisyah",rating:5,komentar:"Enak banget, cocok nyemil ini sambil nugas project 😍"},
+{nama:"Rina",rating:4,komentar:"Nagih parah, recomended!"}
+{nama:"Balqis",rating:4,komentar:"Gurih dan enaakkk bangettt, wajib nyetok cemilan ini!"}
+];
+];
+
+function tampilProduk(){
+productGrid.innerHTML="";
+produk.forEach((p,i)=>{
+productGrid.innerHTML+=`
+<div class="product-card">
+<img src="${p.foto}">
+<div class="product-info">
+<h3>${p.nama}</h3>
+<p class="price">Rp ${p.harga}</p>
+<button onclick="pesan(${i})">Tambah ke Keranjang</button>
+</div>
+</div>`;
+});
+}
+
+function pesan(i){
+let item=keranjang.find(k=>k.nama===produk[i].nama);
+item?item.qty++:keranjang.push({...produk[i],qty:1});
+renderKeranjang();
+}
+
+function renderKeranjang(){
+cart.innerHTML="";
+let totalHarga=0;
+keranjang.forEach(k=>{
+let sub=k.harga*k.qty;
+totalHarga+=sub;
+cart.innerHTML+=`
+<div class="cart-item">
+<span>${k.nama} x${k.qty}</span>
+<span>Rp ${sub}</span>
+</div>`;
+});
+total.innerText=totalHarga;
+}
+
+function pilihMetode(){
+qrisBox.style.display="none";
+bankBox.style.display="none";
+if(metodeBayar.value==="QRIS") qrisBox.style.display="block";
+if(metodeBayar.value==="TRANSFER") bankBox.style.display="block";
+}
+
+function checkout(){
+if(!namaPembeli.value||!alamatPembeli.value){
+alert("Lengkapi nama & alamat pembeli");
+return;
+}
+if(keranjang.length===0){
+alert("Keranjang masih kosong");
+return;
+}
+
+statusPesanan.style.display="block";
+
+setTimeout(()=>{
+statusPesanan.style.display="none";
+statusBerhasil.style.display="block";
+keranjang=[];
+renderKeranjang();
+},1500);
+}
+
+function kirimUlasan(){
+if(!namaUlasan.value||!komentar.value)return;
+ulasan.unshift({nama:namaUlasan.value,rating:rating.value,komentar:komentar.value});
+namaUlasan.value="";
+komentar.value="";
+tampilUlasan();
+}
+
+function tampilUlasan(){
+listUlasan.innerHTML="";
+ulasan.forEach(u=>{
+listUlasan.innerHTML+=`
+<div class="review-item">
+<strong>${u.nama}</strong><br>
+<span class="star">${"⭐".repeat(u.rating)}</span>
+<p>${u.komentar}</p>
+</div>`;
+});
+}
+
+tampilProduk();
+tampilUlasan();
+</script>
+
+</body>
+</html>
